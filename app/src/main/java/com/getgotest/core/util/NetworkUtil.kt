@@ -66,13 +66,13 @@ object NetworkUtil {
             .build()
     }
 
-    private fun provideOkHttpClient(
+    fun provideOkHttpClient(
         context: Context,
-        vararg interceptors: Interceptor
+        interceptors: List<Interceptor>
     ): OkHttpClient {
         val builder = OkHttpClient().newBuilder()
-        for (interceptor in interceptors) {
-            builder.addInterceptor(interceptor)
+        for (items in interceptors) {
+            builder.addInterceptor(items)
         }
         return builder
             .connectTimeout(30, TimeUnit.SECONDS)
