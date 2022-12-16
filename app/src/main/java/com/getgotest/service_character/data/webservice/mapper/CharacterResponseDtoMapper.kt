@@ -1,5 +1,4 @@
 package com.getgotest.service_character.data.webservice.mapper
-
 import com.getgotest.service_character.data.webservice.dto.CharacterResponseDto
 import com.getgotest.service_character.domain.entity.CharacterResponseEntity
 

@@ -1,4 +1,4 @@
-package com.getgotest.core.util
+package com.getgotest.core.util.network
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -10,13 +10,10 @@ import android.widget.Toast
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.getgotest.BuildConfig
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import com.google.gson.ToNumberPolicy
-import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -24,8 +21,6 @@ import java.lang.reflect.Type
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.NetworkInterface
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
 import java.util.*
 import java.util.concurrent.TimeUnit
 

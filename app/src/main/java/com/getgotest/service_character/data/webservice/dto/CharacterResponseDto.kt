@@ -1,5 +1,4 @@
 package com.getgotest.service_character.data.webservice.dto
-
 import com.google.gson.annotations.SerializedName
 
 data class CharacterResponseDto(

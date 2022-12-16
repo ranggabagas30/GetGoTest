@@ -1,23 +1,22 @@
 package com.getgotest.feature_character.sub.character_list.ui.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.getgotest.component.card.CharacterCard
 import com.getgotest.component.util.recyclerview.ListUtil
+import com.getgotest.core.util.network.ResponseState
 import com.getgotest.databinding.ActivityCharacterListBinding
 import com.getgotest.feature_character.sub.character_list.ui.presenter.CharacterListViewModel
 import com.getgotest.feature_character.sub.character_list.ui.view.adapter.RvCharacterListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import org.w3c.dom.CharacterData
 
 @AndroidEntryPoint
 class CharacterListActivity : AppCompatActivity() {
 
     private var binding: ActivityCharacterListBinding? = null
-
-    //private lateinit var characterData: List<CharacterCard.Data>
     private lateinit var rvCharacterListAdapter: RvCharacterListAdapter
     private val characterListViewModel: CharacterListViewModel by viewModels()
 
@@ -27,24 +26,6 @@ class CharacterListActivity : AppCompatActivity() {
         binding = ActivityCharacterListBinding.inflate(layoutInflater)
         val view = binding?.root
         setContentView(view)
-
-//        characterData = listOf(
-//            CharacterCard.Data(
-//                "Tom",
-//                "Live",
-//                "Humanoid"
-//            ),
-//            CharacterCard.Data(
-//                "Rangga",
-//                "Live",
-//                "Human"
-//            ),
-//            CharacterCard.Data(
-//                "Urga",
-//                "Dead",
-//                "Animal"
-//            )
-//        )
 
         rvCharacterListAdapter = RvCharacterListAdapter(this) {
             // navigate to character detail page
@@ -71,18 +52,31 @@ class CharacterListActivity : AppCompatActivity() {
 
     private fun setObservers() {
         characterListViewModel.run {
-            characterData.observe(this@CharacterListActivity) {
-                hideLoading()
+            characterData.observe(this@CharacterListActivity) { response ->
+                Log.d(this@CharacterListActivity::class.java.simpleName, "response: $response")
                 binding?.apply {
-                    rvCharacterListAdapter.submitList(
-                        it.results.map {
-                            CharacterCard.Data(
-                                it.name,
-                                it.status,
-                                it.species
+                    when (response) {
+                        is ResponseState.Success -> {
+                            hideLoading()
+                            rvCharacterListAdapter.submitList(
+                                response.data.results.map {
+                                    CharacterCard.Data(
+                                        it.name,
+                                        it.status,
+                                        it.species
+                                    )
+                                }
                             )
                         }
-                    )
+                        is ResponseState.Failed -> {
+                            hideLoading()
+                            showError(response.message)
+                        }
+                        is ResponseState.Loading -> {
+                            hideError()
+                            showLoading()
+                        }
+                    }
                 }
             }
         }
@@ -90,7 +84,6 @@ class CharacterListActivity : AppCompatActivity() {
 
     private fun requestData() {
         characterListViewModel.run {
-            showLoading()
             getCharacter()
         }
     }
@@ -106,6 +99,21 @@ class CharacterListActivity : AppCompatActivity() {
         binding?.apply {
             pbLoading.isVisible = false
             rvCharacterList.isVisible = true
+        }
+    }
+
+    private fun showError(errorMessage: String) {
+        binding?.apply {
+            rvCharacterList.isVisible = false
+            tvError.isVisible = true
+            tvError.text = "Error: $errorMessage"
+        }
+    }
+
+    private fun hideError() {
+        binding?.apply {
+            rvCharacterList.isVisible = true
+            tvError.isVisible = false
         }
     }
 }
