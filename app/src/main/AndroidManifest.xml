@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".di.MainApplication"
         android:allowBackup="true"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GetGoTest"
         tools:targetApi="31">
+        <activity
+            android:name=".CharacterDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".feature_character.sub.character_list.ui.view.CharacterListActivity"
             android:exported="true"
