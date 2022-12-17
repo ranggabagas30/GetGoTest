@@ -1,4 +1,4 @@
-package com.getgotest.core.util.network
+package com.getgotest.core.util
 
 import android.content.Context
 import android.net.ConnectivityManager

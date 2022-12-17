@@ -13,7 +13,7 @@ data class ResultDto(
     @SerializedName("origin") val origin: Location?,
     @SerializedName("location") val location: Location?,
     @SerializedName("image") val image: String?,
-    @SerializedName("episodes") val episodes: List<String>?
+    @SerializedName("episode") val episodes: List<String>?
 ) {
     @Parcelize
     data class Location(

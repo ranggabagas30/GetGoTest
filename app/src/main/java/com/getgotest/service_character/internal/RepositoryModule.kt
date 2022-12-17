@@ -2,6 +2,7 @@ package com.getgotest.service_character.internal
 
 import com.getgotest.service_character.data.webservice.mapper.CharacterResponseDtoMapper
 import com.getgotest.service_character.data.webservice.mapper.InfoDtoMapper
+import com.getgotest.service_character.data.webservice.mapper.LocationDtoMapper
 import com.getgotest.service_character.data.webservice.mapper.ResultDtoMapper
 import com.getgotest.service_character.data.webservice.repository.CharacterRepositoryImpl
 import com.getgotest.service_character.data.webservice.service.CharacterApi
@@ -24,7 +25,9 @@ object RepositoryModule {
             characterApi,
             CharacterResponseDtoMapper(
                 InfoDtoMapper(),
-                ResultDtoMapper()
+                ResultDtoMapper(
+                    LocationDtoMapper()
+                )
             )
         )
 }

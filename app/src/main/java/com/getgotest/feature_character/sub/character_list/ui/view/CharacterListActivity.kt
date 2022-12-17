@@ -5,16 +5,20 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.getgotest.component.card.CharacterCard
 import com.getgotest.component.util.recyclerview.ListUtil
-import com.getgotest.core.util.network.ResponseState
+import com.getgotest.core.base.ResponseState
 import com.getgotest.databinding.ActivityCharacterListBinding
+import com.getgotest.feature_character.sub.character_list.CharacterListContract
 import com.getgotest.feature_character.sub.character_list.ui.presenter.CharacterListViewModel
 import com.getgotest.feature_character.sub.character_list.ui.view.adapter.RvCharacterListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharacterListActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var router: CharacterListContract.Router
 
     private var binding: ActivityCharacterListBinding? = null
     private lateinit var rvCharacterListAdapter: RvCharacterListAdapter
@@ -27,8 +31,8 @@ class CharacterListActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        rvCharacterListAdapter = RvCharacterListAdapter(this) {
-            // navigate to character detail page
+        rvCharacterListAdapter = RvCharacterListAdapter(this) { index ->
+            router.navigateToChangeDetailPage(this, rvCharacterListAdapter.currentList[index])
         }
 
         initView()
@@ -59,13 +63,7 @@ class CharacterListActivity : AppCompatActivity() {
                         is ResponseState.Success -> {
                             hideLoading()
                             rvCharacterListAdapter.submitList(
-                                response.data.results.map {
-                                    CharacterCard.Data(
-                                        it.name,
-                                        it.status,
-                                        it.species
-                                    )
-                                }
+                                response.data.results
                             )
                         }
                         is ResponseState.Failed -> {

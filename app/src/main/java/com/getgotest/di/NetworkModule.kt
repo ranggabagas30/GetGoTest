@@ -1,7 +1,7 @@
 package com.getgotest.di
 
 import android.content.Context
-import com.getgotest.core.util.network.NetworkUtil
+import com.getgotest.core.util.NetworkUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

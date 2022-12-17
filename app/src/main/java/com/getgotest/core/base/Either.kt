@@ -1,4 +1,4 @@
-package com.getgotest.core.util.network
+package com.getgotest.core.base
 
 import com.getgotest.BuildConfig
 import java.io.InterruptedIOException

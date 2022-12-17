@@ -1,4 +1,4 @@
-package com.getgotest.core.util.network
+package com.getgotest.core.base
 
 sealed class ResponseState<out T: Any> {
     data class Success<out T: Any>(val data: T): ResponseState<T>()

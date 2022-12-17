@@ -1,16 +1,16 @@
 package com.getgotest.feature_character.sub.character_list.ui.view.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import com.getgotest.component.base.BaseRecyclerViewAdapter
 import com.getgotest.component.card.CharacterCard
+import com.getgotest.service_character.domain.entity.ResultEntity
 
 class RvCharacterListAdapter(
     private val context: Context,
     private val onItemClick: (Int) -> Unit
-) : BaseRecyclerViewAdapter<CharacterCard.Data, CharacterCard>() {
+) : BaseRecyclerViewAdapter<ResultEntity, CharacterCard>() {
 
-    override fun ViewHolder<CharacterCard>.onBind(item: CharacterCard.Data, position: Int) {
+    override fun ViewHolder<CharacterCard>.onBind(item: ResultEntity, position: Int) {
         view.apply {
             name = item.name
             status = item.status
