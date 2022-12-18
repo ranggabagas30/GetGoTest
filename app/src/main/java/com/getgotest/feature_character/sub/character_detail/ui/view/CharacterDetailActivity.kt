@@ -10,6 +10,7 @@ import com.getgotest.core.util.customSetImage
 import com.getgotest.databinding.ActivityCharacterDetailBinding
 import com.getgotest.feature_character.sub.character_detail.ui.presenter.CharacterDetailViewModel
 import com.getgotest.feature_character.sub.character_detail.ui.view.adapter.RvEpisodeAdapter
+import com.getgotest.service_character.domain.entity.LocationDetailEntity
 import com.getgotest.service_character.domain.entity.ResultEntity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +23,7 @@ class CharacterDetailActivity : AppCompatActivity() {
 
     class Arguments(val characterDetail: ResultEntity?) {
         companion object {
-            val KEY_CHARACTER_SELECTED = "key.character.selected"
+            const val KEY_CHARACTER_SELECTED = "key.character.selected"
 
             fun createFromIntent(intent: Intent): Arguments {
                 return Arguments(
@@ -85,8 +86,14 @@ class CharacterDetailActivity : AppCompatActivity() {
                     binding?.apply {
                         ivImage.customSetImage(it.image)
                         tvGender.text = "Gender: ${it.gender}"
-                        tvOrigin.text = "Origin: ${it.origin.name}"
-                        tvLocation.text = "Location: ${it.location.name}"
+
+                        getLocationDetail(it.origin.url) {
+                            tvOrigin.text = "Origin: ${toReadableLocationDetailFormat(it)}"
+                        }
+
+                        getLocationDetail(it.location.url) {
+                            tvLocation.text = "Location: ${toReadableLocationDetailFormat(it)}"
+                        }
                     }
 
                     getAllEpisodeDetail(it.episode)
@@ -96,6 +103,15 @@ class CharacterDetailActivity : AppCompatActivity() {
             episodeDetailList.observe(this@CharacterDetailActivity) {
                 rvEpisodeAdapter.submitList(it)
             }
+        }
+    }
+
+    private fun toReadableLocationDetailFormat(locationDetailEntity: LocationDetailEntity): String {
+        return locationDetailEntity.let {
+            "\n" +
+            "\tName\t: ${it.name}\n" +
+            "\tType\t: ${it.type}\n" +
+            "\tDimension\t: ${it.dimension}"
         }
     }
 }

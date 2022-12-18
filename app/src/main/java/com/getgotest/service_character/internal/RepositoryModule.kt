@@ -26,6 +26,7 @@ object RepositoryModule {
                     LocationDtoMapper()
                 )
             ),
-            EpisodeDtoMapper()
+            EpisodeDtoMapper(),
+            LocationDetailDtoMapper()
         )
 }
