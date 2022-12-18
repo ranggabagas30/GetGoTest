@@ -1,0 +1,67 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-parcelize'
+
+android {
+    compileSdk androidCompileSdkVersion
+
+    defaultConfig {
+        minSdk androidMinSdkVersion
+        targetSdk androidTargetSdkVersion
+        versionCode appVersionCode
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    def dependencyGroup = [
+            core    : coreDependencies,
+            main    : mainDependencies,
+            module  : moduleDependencies
+    ]
+
+    def dependencyKaptGroup = [
+            core   : coreKaptDependencies
+    ]
+
+    dependencyGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            implementation dependency
+        }
+    }
+
+    dependencyKaptGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            kapt dependency
+        }
+    }
+
+    testImplementations.each { key, value ->
+        if (key.startsWith('android')) {
+            androidTestImplementation value
+        } else {
+            testImplementation value
+        }
+    }
+}

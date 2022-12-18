@@ -1,0 +1,19 @@
+apply from: "$rootProject.projectDir/base.module.gradle"
+
+android {
+    defaultConfig {
+        consumerProguardFiles "consumer-rules.pro"
+    }
+}
+
+dependencies {
+    def dependencyGroup = [
+            ui          : uiDependencies
+    ]
+
+    dependencyGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            implementation dependency
+        }
+    }
+}

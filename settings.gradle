@@ -13,8 +13,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
 }
 rootProject.name = "GetGoTest"
 include ':app'
-include ':feature:feature_character'
+include ':features:core'
+include ':component'
+include ':features:feature_character'
+include ':services:service_character'

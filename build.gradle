@@ -1,9 +1,115 @@
+
+buildscript {
+    ext {
+        appVersionCode = 1
+        androidMinSdkVersion = 21
+        androidCompileSdkVersion = 32
+        androidTargetSdkVersion = 32
+
+        dependencyVersion = [
+                core                :   "1.7.0",
+                appCompat           :   "1.4.1",
+                legacySupportV4     :   "1.0.0",
+                materialUi            :   "1.7.0",
+                cardView            :   "1.0.0",
+                constraintLayout    :   "2.1.4",
+                glide               :   "4.13.0",
+                fragmentKtx         :   "1.2.4",
+                coroutines          :   "1.6.2",
+                lifecycle           :   "2.4.0",
+                retrofit2           :   "2.9.0",
+                okhttp3             :   "4.9.3",
+                hilt                :   hilt,
+                gson                :   "2.9.0",
+                retrofit2gson       :   "2.9.0",
+                retrofit2scalars    :   "2.1.0",
+                loggingInterceptor  :   "3.10.0",
+                piccaso             : "2.71828",
+                chucker             :   "3.5.2"
+        ]
+
+        testVersion = [
+                jUnit          : "5.9.0",
+                mockitoCore    : "4.0.0",
+                coroutineTest  : "1.3.1",
+                mockitoKotlin  : "2.2.0",
+                coreTesting    : "1.4.0",
+                androidJUnit   : '1.1.3',
+                androidEspresso: '3.2.0'
+        ]
+
+        coreDependencies = [
+                appCompat                    : "androidx.appcompat:appcompat:$dependencyVersion.appCompat",
+                core                         : "androidx.core:core-ktx:$dependencyVersion.core",
+                loggingInterceptor           : "com.squareup.okhttp3:logging-interceptor:$dependencyVersion.loggingInterceptor",
+                hilt                         : "com.google.dagger:hilt-android:$dependencyVersion.hilt",
+                legacySupportV4              : "androidx.legacy:legacy-support-v4:$dependencyVersion.legacySupportV4",
+                piccaso                      : "com.squareup.picasso:picasso:$dependencyVersion.piccaso"
+
+        ]
+
+        coreKaptDependencies = [
+                hiltKapt                : "com.google.dagger:hilt-android-compiler:$dependencyVersion.hilt"
+        ]
+
+        mainDependencies = [
+                gson                   : "com.google.code.gson:gson:$dependencyVersion.gson"
+        ]
+
+        chuckerDebugDependencies = [
+                chuckerDebug    : "com.github.chuckerteam.chucker:library:$dependencyVersion.chucker"
+        ]
+
+        chuckerReleaseDependencies = [
+                chuckerRelease  : "com.github.chuckerteam.chucker:library-no-op:$dependencyVersion.chucker"
+        ]
+
+        uiDependencies = [
+                // UI
+                materialUi      : "com.google.android.material:material:$dependencyVersion.materialUi",
+                constraintLayout: "androidx.constraintlayout:constraintlayout:$dependencyVersion.constraintLayout",
+                fragmentKtx     : "androidx.fragment:fragment-ktx:$dependencyVersion.fragmentKtx",
+        ]
+
+        moduleDependencies = [
+                // coroutine
+                coroutine     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$dependencyVersion.coroutine",
+
+                // lifecycle
+                viewModelKtx     : "androidx.lifecycle:lifecycle-viewmodel-ktx:$dependencyVersion.lifecycle",
+                liveDataKtx      : "androidx.lifecycle:lifecycle-livedata-ktx:$dependencyVersion.lifecycle",
+
+                // network
+                retrofit      : "com.squareup.retrofit2:retrofit:$dependencyVersion.retrofit",
+                okHttp        : "com.squareup.okhttp3:okhttp:$dependencyVersion.okHttp",
+
+                // utility
+                retrofit2gson       : "com.squareup.retrofit2:converter-gson:$dependencyVersion.retrofit2gson",
+                retrofit2scalars    : "com.squareup.retrofit2:converter-scalars:$dependencyVersion.retrofit2scalars",
+        ]
+
+        testImplementations = [
+                jUnit          : "org.junit.jupiter:junit-jupiter-api:$testVersion.jUnit",
+                jUnitEngine    : "org.junit.jupiter:junit-jupiter-engine:$testVersion.jUnit",
+                mockitoCore    : "org.mockito:mockito-core:$testVersion.mockitoCore",
+                mockitoJupiter : "org.mockito:mockito-junit-jupiter:$testVersion.mockitoCore",
+                mockitoInline  : "org.mockito:mockito-inline:$testVersion.mockitoCore",
+                coroutineTest  : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$testVersion.coroutineTest",
+                mockitoKotlin  : "com.nhaarman.mockitokotlin2:mockito-kotlin:$testVersion.mockitoKotlin",
+                coreTesting    : "androidx.test:core-ktx:$testVersion.coreTesting",
+                androidJUnit   : "androidx.test.ext:junit-ktx:$testVersion.androidJUnit",
+                androidEspresso: "androidx.test.espresso:espresso-core:$testVersion.androidEspresso",
+                jcoco          : "org.jacoco:org.jacoco.agent:0.8.5"
+        ]
+    }
+}
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.application' version '7.2.2' apply false
-    id 'com.android.library' version '7.2.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
-    id 'com.google.dagger.hilt.android' version '2.42' apply false
+    id 'com.android.application' version "${androidGradlePlugin}" apply false
+    id 'com.android.library' version "${androidGradlePlugin}" apply false
+    id 'org.jetbrains.kotlin.android' version "${kotlin}" apply false
+    id 'com.google.dagger.hilt.android' version "${hilt}" apply false
 }
 
 task clean(type: Delete) {

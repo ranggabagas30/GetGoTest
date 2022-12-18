@@ -2,9 +2,9 @@ package com.getgotest.di.router.feature_character
 
 import android.app.Activity
 import androidx.core.os.bundleOf
+import com.getgotest.feature_character.sub.character_list.CharacterListContract
 import com.getgotest.core.base.BaseRouter
 import com.getgotest.feature_character.sub.character_detail.ui.view.CharacterDetailActivity
-import com.getgotest.feature_character.sub.character_list.CharacterListContract
 import com.getgotest.service_character.domain.entity.ResultEntity
 
 class CharacterListRouterImpl: BaseRouter(), CharacterListContract.Router {

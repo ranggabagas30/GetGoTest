@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+apply from: '../feature.module.gradle'
+
+dependencies {
+    api project(":component")
+    api project(":features:core")
+    api project(":services:service_character")
+}

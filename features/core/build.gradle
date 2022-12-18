@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply from: '../feature.module.gradle'
+
+android {
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+
+        unitTests.all {
+            useJUnitPlatform() // <--- this is the important part
+        }
+    }
+}
+
+dependencies {
+    def dependencyDebugGroup = [
+            chuckerDebug: chuckerDebugDependencies
+    ]
+
+    def dependencyReleaseGroup = [
+            chuckerRelease: chuckerReleaseDependencies
+    ]
+
+    dependencyDebugGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            debugImplementation dependency
+        }
+    }
+    dependencyReleaseGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            releaseImplementation dependency
+        }
+    }
+}

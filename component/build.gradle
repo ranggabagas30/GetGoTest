@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply from: "../base.module.gradle"
+
+dependencies {
+    def dependencyGroup = [
+            ui      : uiDependencies
+    ]
+
+    dependencyGroup.each { key, dependencies ->
+        dependencies.each { key2, dependency ->
+            implementation dependency
+        }
+    }
+
+    testImplementations.each { key, value ->
+        if (key.startsWith('android')) {
+            androidTestImplementation value
+        } else {
+            testImplementation value
+        }
+    }
+}
