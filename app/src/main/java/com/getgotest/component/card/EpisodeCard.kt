@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.getgotest.R
 import com.getgotest.databinding.ItemEpisodeBinding
 
@@ -40,6 +41,12 @@ class EpisodeCard(context: Context, attributeSet: AttributeSet? = null): FrameLa
             refreshView()
         }
 
+    var isLoading: Boolean = false
+        set(value) {
+            field = value
+            refreshView()
+        }
+
     init {
         parent.apply {
             setBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
@@ -51,6 +58,7 @@ class EpisodeCard(context: Context, attributeSet: AttributeSet? = null): FrameLa
             tvName.text = name
             tvAirDate.text = airDate
             tvEpisode.text = episode
+            pbLoading.isVisible = isLoading
         }
     }
 }

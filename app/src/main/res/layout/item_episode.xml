@@ -6,6 +6,23 @@
     android:background="@color/pale_blue"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:trackThickness="10dp"
+        app:indicatorColor="@color/purple_200"
+        app:trackColor="@color/pale_grey"
+        app:indicatorDirectionCircular="clockwise"
+        app:indicatorSize="90dp"
+        app:indicatorInset="2dp"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"

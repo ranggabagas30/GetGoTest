@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.getgotest.component.card.EpisodeCard
 import com.getgotest.component.util.recyclerview.ListUtil
 import com.getgotest.core.util.customSetImage
 import com.getgotest.databinding.ActivityCharacterDetailBinding
@@ -64,7 +63,9 @@ class CharacterDetailActivity : AppCompatActivity() {
             supportActionBar?.apply {
                 setDisplayHomeAsUpEnabled(true)
             }
-            rvEpisodeAdapter = RvEpisodeAdapter(this@CharacterDetailActivity)
+            rvEpisodeAdapter = RvEpisodeAdapter(
+                this@CharacterDetailActivity
+            )
             rvEpisodes.apply {
                 adapter = rvEpisodeAdapter
                 addItemDecoration(
@@ -87,16 +88,13 @@ class CharacterDetailActivity : AppCompatActivity() {
                         tvOrigin.text = "Origin: ${it.origin.name}"
                         tvLocation.text = "Location: ${it.location.name}"
                     }
-                    rvEpisodeAdapter.submitList(
-                        it.episode.map {
-                            EpisodeCard.Data(
-                                it,
-                                "",
-                                ""
-                            )
-                        }
-                    )
+
+                    getAllEpisodeDetail(it.episode)
                 }
+            }
+
+            episodeDetailList.observe(this@CharacterDetailActivity) {
+                rvEpisodeAdapter.submitList(it)
             }
         }
     }
