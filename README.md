@@ -1,8 +1,11 @@
 # GetGoTest
 GetGo Android home work assessment test
 
-Page 1 (Character List)
-![image](https://user-images.githubusercontent.com/12966894/208333721-3006dc77-983e-498f-855e-6e28b271761a.png)
+- Page 1 (Character List)
+Here is the main activity where user will be landed after opening the application. This activity shows a list of multiple characters from API
+![Screenshot_20221219_090847](https://user-images.githubusercontent.com/12966894/208334634-a628db90-af96-49b5-b4e5-8e5ac6e861b1.jpg)
 
-Page 2 (Character Detail) 
-![image](https://user-images.githubusercontent.com/12966894/208333839-e1612f98-e7c3-45b6-bb94-c15f8d4fd714.png)
+- Page 2 (Character Detail) 
+On each item of character list in Page 1, user can navigate by clicking it and application will show the character detail screen
+![Screenshot_20221219_091410](https://user-images.githubusercontent.com/12966894/208334734-6510f8f9-02bf-4b9b-aba9-3c18a4e4fcc5.jpg)
+
