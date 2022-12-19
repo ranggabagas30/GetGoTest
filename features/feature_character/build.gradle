@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply from: '../feature.module.gradle'
 
 dependencies {
+    testImplementation(project(":core_test"))
     api project(":component")
     api project(":features:core")
     api project(":services:service_character")

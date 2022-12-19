@@ -6,7 +6,7 @@ class CharacterResponseDtoMapper(
     private val infoDtoMapper: InfoDtoMapper,
     private val resultDtoMapper: ResultDtoMapper
 ) {
-    operator fun invoke(from: com.getgotest.service_character.data.webservice.dto.CharacterResponseDto): CharacterResponseEntity {
+    operator fun invoke(from: CharacterResponseDto): CharacterResponseEntity {
         return CharacterResponseEntity(
             infoDtoMapper(from.info),
             from.results.map {

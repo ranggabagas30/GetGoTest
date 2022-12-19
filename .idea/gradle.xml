@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/component" />
+            <option value="$PROJECT_DIR$/core_test" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/core" />
             <option value="$PROJECT_DIR$/features/feature_character" />
