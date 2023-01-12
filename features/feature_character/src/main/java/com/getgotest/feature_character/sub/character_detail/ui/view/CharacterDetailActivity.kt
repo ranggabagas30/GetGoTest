@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.getgotest.component.util.recyclerview.ListUtil
 import com.getgotest.core.util.customSetImage
 import com.getgotest.feature_character.databinding.ActivityCharacterDetailBinding
+import com.getgotest.feature_character.sub.character_detail.CharacterDetailContract
 import com.getgotest.feature_character.sub.character_detail.ui.presenter.CharacterDetailViewModel
 import com.getgotest.feature_character.sub.character_detail.ui.view.adapter.RvEpisodeAdapter
 import com.getgotest.service_character.domain.entity.LocationDetailEntity
 import com.getgotest.service_character.domain.entity.ResultEntity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharacterDetailActivity : AppCompatActivity() {
@@ -20,6 +22,9 @@ class CharacterDetailActivity : AppCompatActivity() {
     private var binding: ActivityCharacterDetailBinding? = null
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
     private lateinit var rvEpisodeAdapter: RvEpisodeAdapter
+
+    @Inject
+    lateinit var router: CharacterDetailContract.Router
 
     class Arguments(val characterDetail: ResultEntity?) {
         companion object {
@@ -82,21 +87,29 @@ class CharacterDetailActivity : AppCompatActivity() {
     private fun setObservers() {
         characterDetailViewModel.run {
             characterDetail.observe(this@CharacterDetailActivity) { characterDetail ->
-                characterDetail?.let {
+                characterDetail?.let { resultEntity ->
                     binding?.apply {
-                        ivImage.customSetImage(it.image)
-                        tvGender.text = "Gender: ${it.gender}"
+                        ivImage.apply {
+                            customSetImage(resultEntity.image)
+                            setOnClickListener {
+                                router.navigateToImageDetailPage(
+                                    this@CharacterDetailActivity,
+                                    resultEntity.image
+                                )
+                            }
+                        }
+                        tvGender.text = "Gender: ${resultEntity.gender}"
 
-                        getLocationDetail(it.origin.url) {
+                        getLocationDetail(resultEntity.origin.url) {
                             tvOrigin.text = "Origin: ${toReadableLocationDetailFormat(it)}"
                         }
 
-                        getLocationDetail(it.location.url) {
+                        getLocationDetail(resultEntity.location.url) {
                             tvLocation.text = "Location: ${toReadableLocationDetailFormat(it)}"
                         }
                     }
 
-                    getAllEpisodeDetail(it.episode)
+                    getAllEpisodeDetail(resultEntity.episode)
                 }
             }
 
@@ -109,9 +122,11 @@ class CharacterDetailActivity : AppCompatActivity() {
     private fun toReadableLocationDetailFormat(locationDetailEntity: LocationDetailEntity): String {
         return locationDetailEntity.let {
             "\n" +
-            "\tName\t: ${it.name}\n" +
-            "\tType\t: ${it.type}\n" +
-            "\tDimension\t: ${it.dimension}"
+                    "\tName\t: ${it.name}\n" +
+                    "\tType\t: ${it.type}\n" +
+                    "\tDimension\t: ${it.dimension}"
         }
     }
+
+
 }

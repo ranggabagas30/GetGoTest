@@ -21,6 +21,9 @@
             android:name=".feature_character.sub.character_detail.ui.view.CharacterDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
+        <activity android:name=".feature_character.sub.character_image.ui.view.CharacterImageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".feature_character.sub.character_list.ui.view.CharacterListActivity"
             android:exported="true"

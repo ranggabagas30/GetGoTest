@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/item_character.xml" value="0.45" />
         <entry key="app/src/main/res/layout/item_episode.xml" value="0.1" />
         <entry key="features/feature_character/src/main/res/layout/activity_character_detail.xml" value="0.1" />
+        <entry key="features/feature_character/src/main/res/layout/activity_character_image.xml" value="0.1" />
       </map>
     </option>
   </component>
